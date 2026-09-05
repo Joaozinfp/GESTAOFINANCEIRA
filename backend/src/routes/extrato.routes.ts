@@ -33,6 +33,10 @@ const upload = multer({
 });
 
 router.post("/extrato/upload", upload.single("extrato"), async (req, res) => {
+
+   const usuarioId = Number(req.body.usuario_id)
+
+
   if (!req.file) {
     return res.status(400).json({
       mensagem: "Nenhum arquivo foi enviado.",
@@ -60,7 +64,7 @@ for (const transacao of transacoesClassificadas) {
     VALUES (?, ?, ?, ?, ?, ?)
     `,
     [
-      1,
+      usuarioId,
       transacao.data,
       transacao.descricao,
       transacao.valor,
@@ -227,6 +231,7 @@ const evolucao = [];
 
 const hoje = new Date();
 
+
 for (let i = meses - 1; i >= 0; i--) {
   const data = new Date(
     hoje.getFullYear(),
@@ -267,4 +272,4 @@ return res.json(evolucao);
   }
 });
 
-export default router;
+export default router

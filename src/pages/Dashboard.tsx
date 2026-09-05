@@ -84,8 +84,10 @@ const [dadosResumo, dadosTransacoes] = await Promise.all([
             <div className="user-avatar">A</div>
 
             <div>
-              <strong>Administrador</strong>
-              <span>Minha conta</span>
+              <strong>
+  {JSON.parse(localStorage.getItem('usuario') || '{}').nome}
+</strong>
+<span>Minha conta</span>
             </div>
           </div>
         </header>

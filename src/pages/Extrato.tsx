@@ -12,7 +12,7 @@ async function carregarTransacoes() {
   try {
     const usuarioSalvo = localStorage.getItem('usuario')
 
-if (!usuarioSalvo) {
+if (!usuarioSalvo){
   return
 }
 
@@ -55,6 +55,17 @@ useEffect(() => {
       const formData = new FormData()
 
       formData.append('extrato', arquivo)
+
+      const usuarioSalvo = localStorage.getItem('usuario')
+
+if (!usuarioSalvo) {
+  setMensagem('Usuário não encontrado.')
+  return
+}
+
+const usuario = JSON.parse(usuarioSalvo)
+
+formData.append('usuario_id', String(usuario.id))
 
       const response = await fetch(
         'http://localhost:3000/extrato/upload',

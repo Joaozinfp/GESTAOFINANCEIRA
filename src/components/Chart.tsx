@@ -36,22 +36,33 @@ function Chart() {
   const [dados, setDados] = useState<Evolucao[]>([])
   const [meses, setMeses] = useState(6)
 
-  useEffect(() => {
-    async function carregarEvolucao() {
-      try {
-        const resultado = await buscarEvolucao(meses)
+ useEffect(() => {
+  async function carregarEvolucao() {
+    try {
+      const usuarioSalvo = localStorage.getItem('usuario')
 
-        setDados(resultado)
-      } catch (error) {
-        console.error(
-          'Erro ao carregar evolução financeira:',
-          error,
-        )
+      if (!usuarioSalvo) {
+        return
       }
-    }
 
-    carregarEvolucao()
-  }, [meses])
+      const usuario = JSON.parse(usuarioSalvo)
+
+      const resultado = await buscarEvolucao(
+        usuario.id,
+        meses,
+      )
+
+      setDados(resultado)
+    } catch (error) {
+      console.error(
+        'Erro ao carregar evolução financeira:',
+        error,
+      )
+    }
+  }
+
+  carregarEvolucao()
+}, [meses])
 
   return (
     <div>

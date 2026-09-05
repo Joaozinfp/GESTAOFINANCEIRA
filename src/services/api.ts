@@ -37,9 +37,12 @@ export async function buscarDespesasPorCategoria(usuarioId: number) {
 
   return response.json()
 }
-export async function buscarEvolucao(meses: number) {
+ export async function buscarEvolucao(
+  usuarioId: number,
+  meses: number,
+) {
   const response = await fetch(
-    `${API_URL}/resumo/evolucao?meses=${meses}`,
+    `${API_URL}/resumo/evolucao?usuario_id=${usuarioId}&meses=${meses}`,
   )
 
   if (!response.ok) {
