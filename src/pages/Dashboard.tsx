@@ -18,12 +18,13 @@ function Dashboard() {
   useEffect(() => {
     async function carregarDados() {
       try {
-        const usuarioSalvo = localStorage.getItem('usuario')
+       const usuarioSalvo =
+  localStorage.getItem('usuario') ||
+  sessionStorage.getItem('usuario')
 
 if (!usuarioSalvo) {
   return
 }
-
 const usuario = JSON.parse(usuarioSalvo)
 
 const [dadosResumo, dadosTransacoes] = await Promise.all([
@@ -85,7 +86,11 @@ const [dadosResumo, dadosTransacoes] = await Promise.all([
 
             <div>
               <strong>
-  {JSON.parse(localStorage.getItem('usuario') || '{}').nome}
+  {JSON.parse(
+    localStorage.getItem('usuario') ||
+    sessionStorage.getItem('usuario') ||
+    '{}'
+  ).nome}
 </strong>
 <span>Minha conta</span>
             </div>
